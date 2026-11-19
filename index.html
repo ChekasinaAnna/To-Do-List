@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#e9edf5">
+    <meta name="description" content="Добавляйте дела, отмечайте выполненные и сохраняйте список в браузере.">
+    <title>Список задач</title>
+    <link rel="icon" href="./Иконки/пустой-список.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./Шрифты/шрифты.css">
+    <link rel="stylesheet" href="./стили.css">
+    <script src="./список.js" defer></script>
+  </head>
+  <body>
+    <main class="sheet">
+      <h1>Список задач</h1>
+
+      <form class="task-form" id="task-form" novalidate>
+        <label for="task-title">Новая задача</label>
+        <div class="task-form-controls">
+          <input id="task-title" name="task" type="text" placeholder="Что сделать?" required autocomplete="off">
+          <button class="add-button" type="submit">
+            <img src="./Иконки/добавить.svg" width="16" height="16" alt="">
+            Добавить
+          </button>
+        </div>
+        <p class="form-error" id="task-error" hidden>Введите название задачи</p>
+      </form>
+
+      <div class="completion" id="completion" hidden>
+        <p id="completion-label"></p>
+        <progress id="completion-bar" aria-label="Выполнение задач" max="1" value="0"></progress>
+      </div>
+
+      <section class="task-section" aria-label="Список задач">
+        <p class="storage-warning" id="storage-warning" role="status" hidden></p>
+        <section class="task-group" id="active-group" aria-labelledby="active-heading" hidden>
+          <h2 id="active-heading">В работе</h2>
+          <ul class="task-list" id="active-list"></ul>
+        </section>
+        <section class="task-group" id="completed-group" aria-labelledby="completed-heading" hidden>
+          <h2 id="completed-heading">Выполнено</h2>
+          <ul class="task-list" id="completed-list"></ul>
+        </section>
+        <div class="empty-state" id="empty-state">
+          <div class="empty-icon">
+            <img src="./Иконки/пустой-список.svg" width="28" height="28" alt="">
+          </div>
+          <p>Задач пока нет</p>
+        </div>
+        <noscript><p>Включите JavaScript, чтобы вести список задач.</p></noscript>
+      </section>
+    </main>
+
+    <div class="notice" id="delete-notice" role="group" aria-label="Уведомление об удалении" hidden>
+      <p>Задача удалена</p>
+      <div class="notice-actions">
+        <button class="undo-button" id="undo-delete" type="button">Отменить</button>
+        <button class="icon-button close-button" id="close-notice" type="button" aria-label="Закрыть уведомление">
+          <img src="./Иконки/закрыть.svg" width="16" height="16" alt="">
+        </button>
+      </div>
+    </div>
+
+    <div class="visually-hidden" role="status" id="status-message"></div>
+
+    <template id="task-template">
+      <li class="task">
+        <label class="task-toggle">
+          <input class="visually-hidden" type="checkbox">
+          <span class="task-mark" aria-hidden="true">
+            <img src="./Иконки/галочка.svg" width="15" height="15" alt="">
+          </span>
+          <span class="task-title"></span>
+        </label>
+        <button class="icon-button delete-button" type="button">
+          <img src="./Иконки/удалить.svg" width="18" height="18" alt="">
+        </button>
+      </li>
+    </template>
+  </body>
+</html>
